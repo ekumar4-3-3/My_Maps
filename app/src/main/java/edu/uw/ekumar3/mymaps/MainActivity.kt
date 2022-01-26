@@ -2,12 +2,13 @@ package edu.uw.ekumar3.mymaps
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import edu.uw.ekumar3.mymaps.databinding.ActivityMainBinding
 import edu.uw.ekumar3.mymaps.models.Place
 import edu.uw.ekumar3.mymaps.models.UserMap
 
+private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
@@ -21,9 +22,18 @@ class MainActivity : AppCompatActivity() {
         // Set layout manager on the recycler view
             // layout manager tells recycler view how to layout items on the screen
         binding.rvMaps.layoutManager = LinearLayoutManager(this)
-        binding.rvMaps.adapter = MapsAdapter(this, userMaps)
+        binding.rvMaps.adapter = MapsAdapter(this, userMaps, object: MapsAdapter.onClickListener {
+            override fun onItemClick(position: Int) {
+                Log.i(TAG, "onItemClick $position")
+                // When user taps on view in RV, navigate to new activity
+
+            }
+
+        })
         // set adapter on the recycler view
             // brings data
+
+
     }
 
     private fun generateSampleData(): List<UserMap> {
